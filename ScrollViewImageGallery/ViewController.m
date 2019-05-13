@@ -71,6 +71,7 @@
     pageControl.currentPageIndicatorTintColor = [UIColor greenColor];
     [self.view addSubview:pageControl];
     self.pageControl = pageControl;
+    [self.pageControl addTarget:self action:@selector(pageControlTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     [NSLayoutConstraint activateConstraints:@[
                                               [stackView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
@@ -106,4 +107,21 @@
     self.pageControl.currentPage = pageInt;
 }
 
+-(void)pageControlTapped:(UIPageControl*)sender{
+    NSInteger currentPage = sender.currentPage;
+    CGFloat width = self.view.frame.size.width;
+    switch (currentPage) {
+        case 0:
+            [self.scrollView setContentOffset:CGPointMake(width * 0, 0)];
+            break;
+        case 1:
+            [self.scrollView setContentOffset:CGPointMake(width * 1, 0)];
+            break;
+        case 2:
+            [self.scrollView setContentOffset:CGPointMake(width * 2, 0)];
+            break;
+        default:
+            break;
+    }
+}
 @end
