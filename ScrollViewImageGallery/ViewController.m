@@ -7,9 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "SecondViewController.h"
 
 @interface ViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic,strong) UIImage* image;
 
 @end
 
@@ -32,6 +34,22 @@
     UIImageView* firstImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lighthouse"]];
     UIImageView* secondImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"infield"]];
     UIImageView* thirdImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"night"]];
+    
+    firstImageView.contentMode = UIViewContentModeScaleAspectFit;
+    secondImageView.contentMode = UIViewContentModeScaleAspectFit;
+    thirdImageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    firstImageView.userInteractionEnabled = YES;
+    secondImageView.userInteractionEnabled = YES;
+    thirdImageView.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer* firstImageTapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapped:)];
+     UITapGestureRecognizer* secondImageTapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapped:)];
+     UITapGestureRecognizer* thirdImageTapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapped:)];
+    
+    [firstImageView addGestureRecognizer:firstImageTapGesture];
+    [secondImageView addGestureRecognizer:secondImageTapGesture];
+    [thirdImageView addGestureRecognizer:thirdImageTapGesture];
     
     firstImageView.translatesAutoresizingMaskIntoConstraints = NO;
     secondImageView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -57,5 +75,16 @@
                                               ]];
 }
 
+-(void)viewTapped:(UITapGestureRecognizer*)sender{
+    NSLog(@"tapped");
+    UIImageView* iv = (UIImageView*)sender.view;
+    self.image = iv.image;
+    [self performSegueWithIdentifier:@"detailSegue" sender:sender];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    SecondViewController* dvc = segue.destinationViewController;
+    dvc.image = self.image;
+}
 
 @end

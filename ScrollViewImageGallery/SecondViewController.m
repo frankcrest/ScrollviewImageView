@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImageView* firstImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed: @"lighthouse"]];
+    UIImageView* firstImageView = [[UIImageView alloc]initWithImage: self.image ? self.image : [UIImage imageNamed:@"lighthouse"]];
     firstImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.scrollView addSubview:firstImageView];
     self.firstImageView = firstImageView;
@@ -34,12 +34,14 @@
     self.scrollView.maximumZoomScale = 1;
     //set originalscale = full image
     self.scrollView.zoomScale = minZoom;
+    self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.center.y - self.firstImageView.center.y, 0, 0, 0);
     
     [NSLayoutConstraint activateConstraints:@[
                                               [firstImageView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
                                               [firstImageView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
                                               [firstImageView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
                                               [firstImageView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
+                                              
                                               ]];
 
 }
