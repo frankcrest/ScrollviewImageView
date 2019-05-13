@@ -12,6 +12,7 @@
 @interface ViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic,strong) UIImage* image;
+@property (nonatomic,strong) UIPageControl* pageControl;
 
 @end
 
@@ -61,6 +62,16 @@
     
     self.scrollView.pagingEnabled = YES;
     
+    UIPageControl* pageControl = [[UIPageControl alloc]initWithFrame:CGRectZero];
+    pageControl.translatesAutoresizingMaskIntoConstraints = NO;
+    pageControl.numberOfPages = 3;
+    pageControl.currentPage = 0;
+    pageControl.tintColor = [UIColor redColor];
+    pageControl.pageIndicatorTintColor = [UIColor blackColor];
+    pageControl.currentPageIndicatorTintColor = [UIColor greenColor];
+    [self.view addSubview:pageControl];
+    self.pageControl = pageControl;
+    
     [NSLayoutConstraint activateConstraints:@[
                                               [stackView.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
                                               [stackView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
@@ -72,6 +83,9 @@
                                               [firstImageView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:1],
                                               [secondImageView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:1],
                                               [thirdImageView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:1],
+                                              [pageControl.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+                                              [pageControl.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0],
+                                              [pageControl.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-20],
                                               ]];
 }
 
@@ -85,6 +99,11 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     SecondViewController* dvc = segue.destinationViewController;
     dvc.image = self.image;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    int pageInt = scrollView.contentOffset.x / scrollView.frame.size.width;
+    self.pageControl.currentPage = pageInt;
 }
 
 @end
