@@ -28,7 +28,7 @@
 -(void)setupScrollView{
     UIStackView* stackView = [[UIStackView alloc]init];
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
-    stackView.distribution = UIStackViewDistributionEqualSpacing;
+    stackView.distribution = UIStackViewDistributionFill;
     
     [self.scrollView addSubview:stackView];
     
@@ -78,12 +78,12 @@
                                               [stackView.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
                                               [stackView.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
                                               [stackView.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
-                                              [firstImageView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:1],
-                                              [secondImageView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:1],
-                                              [thirdImageView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:1],
-                                              [firstImageView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:1],
-                                              [secondImageView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:1],
-                                              [thirdImageView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor multiplier:1],
+                                              [firstImageView.heightAnchor constraintEqualToAnchor:self.scrollView.heightAnchor multiplier:1],
+                                              [secondImageView.heightAnchor constraintEqualToAnchor:self.scrollView.heightAnchor multiplier:1],
+                                              [thirdImageView.heightAnchor constraintEqualToAnchor:self.scrollView.heightAnchor multiplier:1],
+                                              [firstImageView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:1],
+                                              [secondImageView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:1],
+                                              [thirdImageView.widthAnchor constraintEqualToAnchor:self.scrollView.widthAnchor multiplier:1],
                                               [pageControl.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
                                               [pageControl.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:0],
                                               [pageControl.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:-20],
